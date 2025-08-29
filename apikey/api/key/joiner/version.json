@@ -1,6 +1,6 @@
 {
-    "version": "4.5",
+    "version": "4.7",
     "release_date": "2025-08-17",
     "author": "Hoang Gia Kiet",
-    "changelog": "update"
+    "changelog": "Updated tools version 4.7\nCác cải tiến và sửa lỗi:\n1.Làm lại giao diện menu console hoàn toàn mới\n2.Thêm các chức năng mới\n - Online\n -Call Spammer\n - Change Nickname\n - Reply Spammer\n - DM Spammer\n\n Lưu ý: DM Spammer đang là chức năng beta đang thử nghiệm và vẫn còn lỗi, sẽ bị die token, ko nên sử dụng\n\n\n Ib bố kiệt để update "
 }
