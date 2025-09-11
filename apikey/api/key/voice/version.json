@@ -1,6 +1,6 @@
 {
     "version": "2.4",
-    "release_date": "2025-09-09",
+    "release_date": "2025-09-12",
     "author": "Hoang Gia Kiet",
     "changelog": "1. Thêm mute loa, mic\n2. Thêm bật cam, phát live\n3. Fix lỗi mất kết nối\n4. Cải thiện hiệu suất và ổn định\n6. Tối ưu hóa code và giao diện"
 }
