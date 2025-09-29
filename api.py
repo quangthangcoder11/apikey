@@ -18,15 +18,24 @@ class APIKeyManager:
         self.api_folders = [
             "avatar", "joiner", "nhaydis", "nhayzalo", 
             "rename", "spamdis", "spamzalo", "voice",
+<<<<<<< HEAD
             "ig", "spamdiskonen", "nhaymess", "treomess", "docquyen"
+=======
+            "ig", "spamdiskonen"
+>>>>>>> d1b872eee0081372e644d1e181e70d965d407f53
         ]
         self.github_repo = "https://github.com/quangthangcoder11/apikey.git"
     
     def print_header(self):
         header_text = """
 ╔══════════════════════════════════════════════════════════════╗
+<<<<<<< HEAD
 ║                         API KEY MANAGER                      ║
 ║                    Developed by Hoang Gia Kiet               ║
+=======
+║                    🔑 API KEY MANAGER 🔑                    ║
+║                    Developed by Hoang Gia Kiet              ║
+>>>>>>> d1b872eee0081372e644d1e181e70d965d407f53
 ╚══════════════════════════════════════════════════════════════╝
         """
         print(Colorate.Horizontal(Colors.rainbow, header_text, 1))
