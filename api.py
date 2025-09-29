@@ -165,8 +165,18 @@ class APIKeyManager:
             subprocess.run(['git', 'fetch', 'origin'], check=True)
             self.print_success("Đã fetch latest changes")
             
-            subprocess.run(['git', 'pull', 'origin', 'master'], check=True)
-            self.print_success("Đã pull changes từ remote")
+            # Thử pull thông thường trước
+            try:
+                subprocess.run(['git', 'pull', 'origin', 'master'], check=True)
+                self.print_success("Đã pull changes từ remote")
+            except subprocess.CalledProcessError as pull_error:
+                # Nếu có lỗi unrelated histories, thử với --allow-unrelated-histories
+                if "unrelated histories" in str(pull_error):
+                    self.print_warning("Phát hiện unrelated histories, đang xử lý...")
+                    subprocess.run(['git', 'pull', 'origin', 'master', '--allow-unrelated-histories'], check=True)
+                    self.print_success("Đã merge với unrelated histories")
+                else:
+                    raise pull_error
             
             return True
         except subprocess.CalledProcessError as e:
@@ -195,8 +205,19 @@ class APIKeyManager:
             subprocess.run(['git', 'commit', '-m', commit_message], check=True)
             self.print_success("Đã commit thay đổi")
             
-            subprocess.run(['git', 'push', 'origin', 'master'], check=True)
-            self.print_success("Đã push lên GitHub")
+            # Thử push thông thường trước
+            try:
+                subprocess.run(['git', 'push', 'origin', 'master'], check=True)
+                self.print_success("Đã push lên GitHub")
+            except subprocess.CalledProcessError as push_error:
+                # Nếu có lỗi non-fast-forward, thử pull trước rồi push lại
+                if "non-fast-forward" in str(push_error) or "rejected" in str(push_error):
+                    self.print_warning("Phát hiện lỗi non-fast-forward, đang đồng bộ...")
+                    self.sync_with_remote()
+                    subprocess.run(['git', 'push', 'origin', 'master'], check=True)
+                    self.print_success("Đã push lên GitHub sau khi đồng bộ")
+                else:
+                    raise push_error
             
             return True
             
@@ -224,8 +245,19 @@ class APIKeyManager:
             subprocess.run(['git', 'commit', '-m', commit_message], check=True)
             self.print_success("Đã commit thay đổi")
 
-            subprocess.run(['git', 'push', 'origin', 'master'], check=True)
-            self.print_success("Đã push lên GitHub")
+            # Thử push thông thường trước
+            try:
+                subprocess.run(['git', 'push', 'origin', 'master'], check=True)
+                self.print_success("Đã push lên GitHub")
+            except subprocess.CalledProcessError as push_error:
+                # Nếu có lỗi non-fast-forward, thử pull trước rồi push lại
+                if "non-fast-forward" in str(push_error) or "rejected" in str(push_error):
+                    self.print_warning("Phát hiện lỗi non-fast-forward, đang đồng bộ...")
+                    self.sync_with_remote()
+                    subprocess.run(['git', 'push', 'origin', 'master'], check=True)
+                    self.print_success("Đã push lên GitHub sau khi đồng bộ")
+                else:
+                    raise push_error
             
             return True
             
